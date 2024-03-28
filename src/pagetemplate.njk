@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <!-- jQuery library -->
+
+</head>
+<style>
+    body {
+        /* main background-color whole dashboard */
+        /* font-family: Arial, sans-serif; */
+        background-color: #000000;
+        /* color: #d2ff4a */
+        /* margin: 110;
+        padding: 110; */
+    }
+    /* Custom styles */
+    
+    .system-info-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .database-info-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .other-info-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .network-info-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .log-analyzer-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .nodejs-card {
+        background-color: #d4edda;
+        /* Light green background color */
+    }
+    
+    .java-card {
+        background-color: #f8d7da;
+        /* Light red background color */
+    }
+    
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .section {
+        flex: 1;
+        margin-bottom: 20px;
+        background-color: #f8d7da;
+    }
+    
+    .section:nth-child(odd) {
+        margin-right: 20px;
+    }
+    /* Additional styling for cards */
+    
+    .card {
+        border-radius: 15px;
+        background-color: #E72929;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0px 0px;
+        background-color: #58A399;
+        color: #EEEDEB
+    }
+    
+    .card-body {
+        padding: 1rem;
+        border-radius: 10px;
+        background-color: #282828;
+        color: #EEEDEB
+    }
+    
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .btn {
+        border-radius: 5px;
+    }
+    /* Adjust styles to make the modal look clean and minimalistic */
+    
+    .modal-content {
+        border: none;
+        border-radius: 30;
+    }
+    /* .table {
+  margin-bottom: 0; 
+} */
+    
+    .table thead th {
+        border-top: none;
+    }
+    
+    .table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+        /* Alternate row color */
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f0f0f0;
+        /* Hover color */
+    }
+</style>
+
+
+<body>
+    <div>
+        <b-navbar toggleable="lg" type="dark" variant="dark" style="border-radius: 10px;margin-left: 10px;margin-right: 10px;margin-bottom: 15px;">
+            <b-navbar-brand href="#" style="padding-left: 20px;"> System Health Dashboard</b-navbar-brand>
+
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+                <!-- <b-navbar-nav>
+                    <b-nav-item href="#">Link</b-nav-item>
+                    <b-nav-item href="#" disabled>Disabled</b-nav-item>
+                </b-navbar-nav> -->
+
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+                    <!-- <b-nav-form>
+                        <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+                        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+                    </b-nav-form> -->
+
+                    <!-- <b-nav-item-dropdown text="Lang" right>
+                        <b-dropdown-item href="#">EN</b-dropdown-item>
+                        <b-dropdown-item href="#">ES</b-dropdown-item>
+                        <b-dropdown-item href="#">RU</b-dropdown-item>
+                        <b-dropdown-item href="#">FA</b-dropdown-item>
+                    </b-nav-item-dropdown> -->
+
+                    <b-nav-item-dropdown right>
+                        <!-- Using 'button-content' slot -->
+                        <template #button-content>
+                  <em><b-avatar size="24"></b-avatar></em>
+                </template>
+                        <b-dropdown-item href="/operations/dist" target="_blank">Home</b-dropdown-item>
+                        <b-dropdown-item href="/app-builder/dist/index.html#/build/dashboard" target="_blank">App Builder</b-dropdown-item>
+                        <b-dropdown-item href="#" v-b-modal.modal-center>About</b-dropdown-item>
+                        <!-- <div> -->
+                        <!-- <b-button v-b-modal.modal-center>Launch centered modal</b-button> -->
+
+                        <!-- <b-modal v-b-modal.modal-ok-center id="modal-center" centered title="About Dashboard" ok-only>
+                            <p class="my-4">asdasdasdasdaskld[asdklkp ajsdjoasjdoj!</p>
+                        </b-modal> -->
+                        <b-modal v-b-modal.modal-ok-center id="modal-center1" centered title="System Monitoring Dashboard" ok-only>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="mb-3">Overview:</h5>
+                                        <p class="text-muted">Welcome to our state-of-the-art System Monitoring Dashboard. This comprehensive tool offers real-time insights into the performance and health of your system infrastructure.</p>
+                                        <h5 class="mb-3">Key Features:</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success"></i> Visualize system metrics with intuitive graphs and charts.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Monitor resource utilization, including CPU, memory, and disk usage.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Receive alerts and notifications for critical system events.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Customizable dashboards tailored to your specific monitoring needs.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Seamless integration with your existing infrastructure.</li>
+                                        </ul>
+                                        <h5 class="mb-3">Benefits:</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check-circle text-success"></i> Improve system reliability and performance through proactive monitoring.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Identify and resolve issues swiftly to minimize downtime.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Optimize resource allocation for enhanced efficiency and cost savings.</li>
+                                            <li><i class="fas fa-check-circle text-success"></i> Empower your team with actionable insights for informed decision-making.</li>
+                                        </ul>
+                                        <p class="text-muted">Experience unparalleled control over your system infrastructure with our System Monitoring Dashboard. Stay ahead of potential challenges and ensure smooth operations at all times.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </b-modal>
+
+                        <template>
+                            <b-modal v-b-modal.modal-ok-center id="modal-center" title="About System Health Dashboard" ok-only>
+                                <div class="about-content">
+                                    <h5>System Information:</h5>
+                                    <p class="text-muted">
+                                      Gain insights into your system's essential details, including hostname, memory usage, CPU cores, uptime, OS release, platform, and architecture.
+                                    </p>
+                                    
+                                    <h5>Database Information:</h5>
+                                    <p class="text-muted">
+                                      Explore your database setup, including hostname, timezone version, schemas, tables, and other relevant data.
+                                    </p>
+                                    
+                                    <h5>Network Information:</h5>
+                                    <p class="text-muted">
+                                      Monitor your network with details such as IP addresses, connection types, and status updates.
+                                    </p>
+                                    
+                                    <h5>Other Information:</h5>
+                                    <p class="text-muted">
+                                      Stay informed about additional system components such as MongoDB version, Node.js version, RabbitMQ, Erlang, and patch versions.
+                                    </p>
+                                    
+                                    <h5>User and Role Policies:</h5>
+                                    <p class="text-muted">
+                                      Manage user access and roles efficiently with dedicated sections for policy configurations.
+                                    </p>
+                                    
+                                    <h5>Log Analyzer:</h5>
+                                    <p class="text-muted">
+                                      Dive deep into your system logs with the integrated log analyzer, offering detailed analysis for troubleshooting and monitoring purposes.
+                                    </p>
+                                  </div>
+                                </b-modal>
+                              </template>
+
+                        <!-- </div> -->
+                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
+    </div>
+
+
+    <!-- <template>
+        <div>
+          <b-alert
+            :show="dismissCountDown"
+            dismissible
+            variant="warning"
+            @dismissed="dismissCountDown=0"
+            @dismiss-count-down="countDownChanged"
+          >
+            This alert will dismiss after {{ dismissCountDown }} seconds...
+          </b-alert>
+          <b-button @click="showAlert" variant="info" class="m-1">
+            Show alert with count-down timer
+          </b-button>
+        </div>
+      </template> -->
+
+
+    <!-- <template>
+        <div>
+          <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button>
+          <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
+            <template #default="{ hide }">
+              <div class="p-3">
+                <h4 id="sidebar-no-header-title">Custom header sidebar</h4>
+                <p>
+                  Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+                  in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                </p>
+                <nav class="mb-3">
+                  <b-nav vertical>
+                    <b-nav-item active @click="hide">Active</b-nav-item>
+                    <b-nav-item href="#link-1" @click="hide">Link</b-nav-item>
+                    <b-nav-item href="#link-2" @click="hide">Another Link</b-nav-item>
+                  </b-nav>
+                </nav>
+                <b-button variant="primary" block @click="hide">Close Sidebar</b-button>
+              </div>
+            </template>
+    </b-sidebar>
+    </div>
+    </template> -->
+
+
+
+
+    <div class="container-fluid mt-2">
+        <div class="row">
+
+            <!-- System Information Section -->
+            <div class="col-md-6">
+                <div class="card mb-3" style=" border-radius: 15px;background-color: #1C1C1C ;">
+                    <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+                        <h5 class="card-title">System Information
+                            <b-icon icon="info-circle" style="color: #ffffff9c;" shift-h="10" shift-v="-2" v-b-popover.hover.right="'OS Level Information related to Current System will be displayed in this section'" title="Extra Info!"></b-icon>
+                        </h5>
+
+                    </div>
+                    <div class="card-body" style=" border-radius: 15px; background-color: #1C1C1C00 ;">
+                        <div class="row">
+                            <!-- Hostname -->
+                            <div v class="col-5 mb-3">
+                                <div class="card system-info-card" style=" border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body" v-b-popover.hover.bottomright="'hostname of the current Machine currenlty its {{hostname}}'" title="Extra Info!">
+                                        <h6 class="card-title">
+                                            Hostname
+                                            <!-- <b-icon icon="info-circle" shift-h="20"></b-icon> -->
+                                        </h6>
+                                        <p class="card-text">{{hostname}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Platform -->
+                            <div class="col-3 mb-3">
+                                <div class="card system-info-card" style=" border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body" v-b-tooltip.hover.rightbottom title="Tooltip directive content">
+
+                                        <h6 class="card-title">Platform</h6>
+                                        <p class="card-text">{{platform}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Architecture -->
+                            <div class="col-4 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Architecture</h6>
+                                        <p class="card-text">{{arch}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Uptime -->
+                            <div class="col-4 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Uptime</h6>
+                                        <p class="card-text">{{uptime}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Type -->
+                            <div class="col-4 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Type</h6>
+                                        <p class="card-text">{{type}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- OS Release -->
+                            <div class="col-4 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">OS Release</h6>
+                                        <p class="card-text">{{release}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- RAM -->
+                            <div class="col-12 mb-3">
+                                <!-- <div class="card p-3"> -->
+                                <div class="card p-0 system-info-card" style=" border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body p-3">
+                                        <h6 class="card-title">Memory Usage</h6>
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="card-text mb-1">Total: <span id="totalMemory">{{ram_tot}}</span> GB</p>
+                                            </div>
+                                            <div class="col">
+                                                <p class="card-text mb-1">Used: <span id="usedMemory">{{sysRamused}}</span></p>
+                                            </div>
+                                            <div class="col">
+                                                <p class="card-text mb-1">Free: <span id="freeMemory">{{ram_free}}</span> GB</p>
+                                            </div>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div id="ramUsageProgressBar" class="progress-bar bg-{{sysRamstatus}}" role="progressbar" style="width: {{sysRamPerc}}%;" aria-valuenow="{{sysRamPerc}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <small class="text-muted"><span id="ramUsagePercentage">{{sysRamPerc}}</span>% used</small>
+                                            <span id="ramUsageBadge" class="badge bg-{{sysRamstatus}}">{{sysRamlabel}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12 mb-3">
+    <div class="card system-info-card" style="border-radius: 10px;background-color: #F1F1F1;">
+        <div class="card-body">
+            <h6 class="card-title">Storage Information</h6>
+            <div class="row">
+                <div class="col-6">
+                    <div class="storage-info">
+                        <p><strong>C:</strong> 75 GB Free / 465 GB</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 16%;" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="storage-info">
+                        <p><strong>E:</strong> 21 GB Free / 466 GB</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-{{TESTSTATUS}}" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+                            <!-- CPU Information -->
+                            <div class="col-8 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">CPU Information</h6>
+                                        <p class="card-text">AMD Ryzen 7 3700X 8-Core Processor</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CPU Core Count: -->
+                            <div class="col-4 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">CPU Core Count</h6>
+                                        <p class="card-text">{{cpu_core}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- extras: -->
+                            <!-- <div class="col-4 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Process</h6>
+                                        <p class="card-text">516</p>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- extras: -->
+                            <!-- <div class="col-8 mb-3">
+                                <div class="card system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Extra PlaceHolder</h6>
+                                        <p class="card-text">Data Here!</p>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Database Information Section -->
+            <div class="col-md-6">
+                <div class="card mb-3" style=" border-radius: 15px; background-color: #1C1C1C ;">
+                    <!-- <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;"> -->
+                    <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+                        <h5 class="card-title">Database Information
+                            <b-icon icon="info-circle" style="color: #ffffff9c;" shift-h="10" shift-v="-2" v-b-popover.hover.right="'Database Level Information will be displayed in this section'" title="Extra Info!"></b-icon>
+                        </h5>
+                    </div>
+                    <!-- <div class="card-body" style=" border-radius: 15px; background-color: #ffffff ;"> -->
+                    <!-- <div class="col-md-2"style=" border-radius: 15px; background-color: #000000 ;"> -->
+                    <!-- Database Information content -->
+                    <!-- </div> -->
+                    <!-- <div class="col-md-6 mb-3" style=" border-radius: 15px; background-color: #ffffff ;"> -->
+                    <!-- <div class="col-md-6"style=" border-radius: 15px; background-color: #ffffff ;"> -->
+                    <!-- <div class="card-header"> -->
+                    <!-- <h5 class="card-title">Database Information</h5> -->
+                    <!-- </div> -->
+                    <div class="card-body" style=" border-radius: 15px; background-color: #ffffff00 ;">
+                        <div class="row">
+                            <!-- Oracle Version -->
+                            <div class="col-8 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Oracle Version</h6>
+                                        <p class="card-text">{{db_BANNER}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Startup Time -->
+                            <div class="col-md-4 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Startup Time</h6>
+                                        <p class="card-text">{{db_DATABASE_STARTUP_TIME}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- RAM -->
+                            <div class="col-12 mb-3">
+                                <!-- <div class="card p-3"> -->
+                                <div class="card p-0 system-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body p-3">
+                                        <h6 class="card-title">Memory Usage</h6>
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="card-text mb-1">Total: <span id="totalMemory">{{db_TOTALRAM}}</span> GB</p>
+                                            </div>
+                                            <div class="col">
+                                                <p class="card-text mb-1">Used: <span id="usedMemory">{{dbRamused}}</span></p>
+                                            </div>
+                                            <div class="col">
+                                                <p class="card-text mb-1">Free: <span id="freeMemory">{{db_FREERAM}}</span> GB</p>
+                                            </div>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div id="ramUsageProgressBar" class="progress-bar bg-{{dbRamStatus}}" role="progressbar" style="width: {{dbRamPerc}}%;" aria-valuenow="{{dbRamPerc}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <small class="text-muted"><span id="ramUsagePercentage">{{dbRamPerc}}</span>% used</small>
+                                            <span id="ramUsageBadge" class="badge bg-{{dbRamStatus}}">High</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Timezone Version -->
+                            <div class="col-md-3 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Timezone Version</h6>
+                                        <p class="card-text">{{db_tz_VERSION}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Database Size -->
+                            <div class="col-md-3 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Database Size</h6>
+                                        <p class="card-text">{{db_TOTAL_SIZE_MB}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Current Schema -->
+                            <div class="col-md-3 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Current Schema</h6>
+                                        <p class="card-text">{{db_SCHEMA_NAME}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total schemas -->
+                            <div class="col-md-3 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Schemas</h6>
+                                        <p class="card-text">{{db_TOTAL_USERS}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Tables -->
+                            <div class="col-md-3 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Tables</h6>
+                                        <p class="card-text">{{db_TOTAL_TABLES}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CPU Usage -->
+                            <div class="col-md-3 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">CPU Usage</h6>
+                                        <p class="card-text">{{db_CPU_USAGE}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Total Users -->
+                            <div class="col-md-6 mb-3">
+                                <div class="card database-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Oracle Client Version</h6>
+                                        <p class="card-text">{{oracleClientVersion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- Network Section -->
+            <!-- <div class="col-md-2"style=" border-radius: 15px; background-color: #ffffff ;"> -->
+
+
+
+            <!-- //// -->
+
+            <!-- <div class="col-md-4"style=" border-radius: 15px; background-color: #ffffff ;"> -->
+
+        </div>
+        <div class="row">
+            <!-- Network Information content -->
+            <div class="col-md-6">
+                <div class="card mb-3" style=" border-radius: 15px; background-color: #1C1C1C ;">
+                    <!-- <div class="card-body" style=" border-radius: 15px; background-color: #ffffff00 ;"> -->
+                    <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+                        <h5 class="card-title">Network
+                            <b-icon icon="info-circle" style="color: #ffffff7c;" shift-h="10" shift-v="-2" v-b-popover.hover.right="'Network Information will be displayed in this section'" title="Extra Info!"></b-icon>
+                        </h5>
+                    </div>
+                    <div class="card-body" style=" border-radius: 15px; background-color: #ffffff00 ;">
+                        <div class="row">
+                            <!-- IP Address -->
+                            <div class="col-md-4 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">IP Address</h6>
+                                        <p class="card-text">{{netw_info_ip}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Connection Status -->
+                            <div class="col-md-4 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Connection Status</h6>
+                                        <!-- <p class="card-text">v1.8.301u</p> -->
+                                        <span class="badge bg-{{networkBadge}} w-100">{{netw_status}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Type -->
+                            <div class="col-md-4 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Type</h6>
+                                        <p class="card-text">{{netwr_name}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+                <!-- Other Details content -->
+                <!-- </div> -->
+
+            </div>
+
+            <!-- ///// -->
+
+            <!-- <div>
+            <b-badge variant="primary">Primary</b-badge>
+            <b-badge variant="secondary">Secondary</b-badge>
+            <b-badge variant="success">Success</b-badge>
+            <b-badge variant="danger">High</b-badge>
+            <b-badge variant="warning">High</b-badge>
+            <b-badge variant="info">Info</b-badge>
+            <b-badge variant="light">Light</b-badge>
+            <b-badge variant="dark">Dark</b-badge>
+        </div> -->
+            <!-- <div>
+            <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button>
+            <b-collapse id="collapse-1" class="mt-2">
+                <b-card>
+                    <p class="card-text">Collapse contents Here</p>
+                    <b-button v-b-toggle.collapse-1-inner size="sm">Toggle Inner Collapse</b-button>
+                    <b-collapse id="collapse-1-inner" class="mt-2">
+                        <b-card>Hello!</b-card>
+                    </b-collapse>
+                </b-card>
+            </b-collapse>
+        </div> -->
+            <!-- Log Analyzer content -->
+            <div class="col-md-6">
+                <!-- </div> -->
+                <!-- <div class="col-md-4"> -->
+                <div class="card mb-3" style=" border-radius: 15px;background-color: #1C1C1C ;">
+                    <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+
+                        <h5 class="card-title">Log Analyzer
+                            <b-icon icon="info-circle" style="color: #ffffff7c;" shift-h="10" shift-v="-2" v-b-popover.hover.right="'Log Information will be displayed in this section'" title="Extra Info!"></b-icon>
+                        </h5>
+                    </div>
+                    <div class="card-body" style=" border-radius: 15px; background-color: #1C1C1C00 ;">
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Files
+
+                                        </h6>
+                                        <p class="card-text">{{loganalyzer_totalFileSize}}
+                                            <a>
+                                                <b-icon icon="file-earmark-fill" shift-h="10" shift-v="-0" style="color: #ffffff7c;"></b-icon>
+                                            </a>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3" style="cursor: pointer;">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;" @click="$bvModal.show('totallogsizemodal')">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total Size</h6>
+                                        <p class="card-text">{{loganalyzer_totalLogSize}}
+                                            <a>
+                                                <b-icon icon="pie-chart-fill" shift-h="10" shift-v="-0" style="color: #ffffff7c;"></b-icon>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3" style="cursor: pointer;">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;" @click="$bvModal.show('servicesModal')">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Services</h6>
+                                        <p class="card-text">25
+                                            <a>
+                                                <b-icon icon="server" shift-h="10" shift-v="-0" style="color: #ffffff7c;"></b-icon>
+                                            </a>
+                                            <!-- <a>
+                                                <b-icon icon="arrow-up-right-circle-fill" shift-h="60" shift-v="30" style="color: #6ad4dddc;" scale="1.5"></b-icon>
+                                            </a> -->
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body" style="background-color: {{LOG_LEVEL_COLOR}} " v-b-popover.hover.bottomright="'{{status_description}}'" title="Log Severity!">
+                                        <!-- <div class="card-body" style="background-color: '{{LOG_LEVEL_COLOR}}' " v-b-popover.hover.bottomright="{{status_description}}" title="Level Status!"> -->
+
+                                        <h6 class="card-title">Severity</h6>
+                                        <p class="card-text">{{LOG_LEVEL_STATUS}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-flex">
+                                    <div class="card log-analyzer-card" style="border-radius: 15px; margin-right: 5px;">
+                                        <button class="btn btn w-100" style="border-radius: 8px;background-color: #4189e7d2;color: #ffffffde;" v-b-modal.modal-prevent-closing @click="viewLog()">Download Logs</button>
+                                    </div>
+                                    <div class="card log-analyzer-card" style="border-radius: 15px; margin-left: 5px;">
+                                        <a class="btn btn w-100" style="border-radius: 8px;background-color: #36e4847e;color: #ffffffde;" @click="downloadLogs()" href="/app-builder/dist/index.html#/viewer/dashboard" target="_blank" rel="opener">Go to Log Downloader</a>
+                                    </div>
+                                </div>
+                                <small class="text-muted"><span><b>Note:</b> For filtered search and more detailed info on logs kindly navigate to Log Downloader</span></small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Other Details -->
+            <div class="col-md-12">
+                <div class="card mb-3" style=" border-radius: 15px; background-color: #1C1C1C ;">
+                    <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+                        <h5 class="card-title">Other Details
+                            <b-icon icon="info-circle" style="color: #ffffff7c;" shift-h="10" shift-v="-2" v-b-popover.hover.right="'Other Information will be displayed in this section'" title="Extra Info!"></b-icon>
+                        </h5>
+                    </div>
+                    <div class="card-body" style=" border-radius: 15px; background-color: #ffffff00 ;">
+                        <div class="row">
+                            <!-- Node.js -->
+                            <div class="col-md-2 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;">
+                                    <div class="card-body" style="border-radius: 10px;background-color:#35a54f5e;color: #ffffffce;">
+                                        <h6 class="card-title">Node.js Version</h6>
+                                        <p class="card-text">{{nodeJsVersion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- rabbitmq version -->
+                            <div class="col-md-2 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;">
+                                    <div class="card-body" style="border-radius: 10px;background-color:#e26e203a;color: #ffffffce;" data-toggle="tooltip" data-placement="left" title="Tooltip oasdasdasdasdasd
+                                                                                    asdasdadasda
+                                                                                    sdasdn left">
+                                        <h6 class="card-title">Rabbit-MQ Version</h6>
+                                        <p class="card-text">{{rabbitmqversion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- erlang version -->
+                            <div class="col-md-2 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;">
+                                    <div class="card-body" style="border-radius: 10px;background-color:#a8143e44;color: #ffffffce;" data-toggle="tooltip" data-placement="left" title="Tooltip oasdasdasdasdasd
+                                                                                    asdasdadasda
+                                                                                    sdasdn left">
+                                        <h6 class="card-title">Erlang Version</h6>
+                                        <p class="card-text">{{erlangversion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Java Version -->
+                            <div class="col-md-2 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;">
+                                    <div class="card-body" style="border-radius: 10px;background-color:#4B749133;color: #ffffffce;">
+                                        <h6 class="card-title">MongoDB Version</h6>
+                                        <p class="card-text">{{getMongoVersion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Current Patch -->
+                            <div class="col-md-2 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;">
+                                    <div class="card-body" style="border-radius: 10px;background-color:#2c73c544;color: #ffffffce;" data-toggle="tooltip" data-placement="left" title="Tooltip oasdasdasdasdasd
+                            asdasdadasda
+                            sdasdn left">
+                                        <h6 class="card-title">Current Patch</h6>
+                                        <p class="card-text">v139</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Applied on -->
+                            <div class="col-md-2 mb-3">
+                                <div class="card other-info-card" style="border-radius: 10px;">
+                                    <div class="card-body" style="border-radius: 10px;background-color:#2c73c544;color: #ffffffce;" data-toggle="tooltip" data-placement="left" title="Tooltip oasdasdasdasdasd
+                            asdasdadasda
+                            sdasdn left">
+                                        <h6 class="card-title">Applied On</h6>
+                                        <p class="card-text">{{db_APPLIED_ON}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- log analyzer  -->
+
+            <!-- rs -->
+            <!-- User master content -->
+            <div class="col-md-6">
+                <!-- </div> -->
+                <!-- <div class="col-md-4"> -->
+                <div class="card mb-3" style=" border-radius: 15px;background-color: #1C1C1C ;">
+                    <div class="card-header" style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+
+                        <h5 class="card-title">Users and Role Policy
+                            <b-icon icon="info-circle" style="color: #ffffff69;" shift-h="10" shift-v="-2" v-b-popover.hover.right="'User Information will be displayed in this section'" title="Extra Info!"></b-icon>
+                        </h5>
+                    </div>
+                    <div class="card-body" style=" border-radius: 15px; background-color: #1C1C1C00 ;">
+                        <div class="row">
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body" v-b-popover.hover.bottomright="'Total Active Users for the Application, Currenlty there are ${{db_ACT_USER}} Active users.'" title="Active Users!">
+                                        <h6 class="card-title">Active</h6>
+                                        <p class="card-text">{{db_ACT_USER}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Deleted</h6>
+                                        <p class="card-text">{{db_TOT_DEL_USERS}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Inactive</h6>
+                                        <p class="card-text">{{db_TOT_INAC_USERS}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Online</h6>
+                                        <p class="card-text">{{db_TOT_CON_USERS}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff30;">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Total</h6>
+                                        <p class="card-text">{{db_TOT_USERS}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3" style="cursor: pointer;">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff00;" onclick="window.location.href='/#user/read'">
+                                    <div class="card-body" style="color: #000000d7;background-color: #a4d6ffce;">
+                                        <h6 class="card-title">Go to Userlist</h6>
+                                        <p class="card-text">Click to navigate</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 mb-3" style="cursor: pointer;">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; background-color: #ffffff00;" onclick="window.location.href='/#rolepolicies/read'">
+                                    <div class="card-body" style="color: #000000b4;background-color: #7AA2E3ce;">
+                                        <h6 class="card-title">Go to Role Policy</h6>
+                                        <p class="card-text">Click to navigate</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-12">
+                                <div class="card log-analyzer-card" style="border-radius: 10px; ">
+                                    <button class="btn btn-primary w-100" href="/operations/dist">Go to Userlist</button>
+                                </div>
+                                <small class="text-muted"><span><b>Note:</b> Navigate to the Userlist for more actions</span></small>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- rs -->
+
+            <!-- </div> -->
+
+
+
+            <!-- <template>
+  <div class="col-md-4">
+    <div class="card mb-3" style="border-radius: 15px; background-color: #ffffff;">
+      <div class="card-header"style=" border-radius: 15px 15px 0px 0px;background-color: #ffffff13 ;">
+        <h5 class="card-title">Microservices Status</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div v-for="service in microservices" :key="service.name" class="col-md-12 mb-3">
+            <div class="card other-info-card" style="border-radius: 10px; background-color: #F1F1F1;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <h6 class="card-title">{{ service.name }}</h6>
+                <span v-if="service.status === 'up'" class="badge bg-success">Running</span>
+                <span v-else class="badge bg-danger">Not Running</span>
+                <button class="btn btn-primary" @click="pingService(service.name)">Ping</button>
+                <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                    Tooltip on top
+                  </button>
+                  <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip oasdasdasdasdasd
+                  asdasdadasda
+                  sdasdn left">
+                    btn1
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template> -->
+
+
+
+            <template>
+        <b-modal size="xl" id="modal-prevent-closing" ref="modal" title="Log Information" @show="resetModal" @hidden="resetModal" @ok="handleOk" hide-footer>
+          <div class="p-0" style="max-height: 400px; overflow-y: auto;  position: relative; z-index: 0;">
+            <table class="table">
+              <thead style="position: sticky; top: 0; background-color: #f0f0f0; z-index: 1; ">
+                <tr>
+                  <th >srno</th>
+                  <th >Service Name</th>
+                  <th>Filename</th>
+                  <th >logsize</th>
+                  <th >Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in logger %}
+                <tr>
+                  <td>{{ item.srno }}</td>
+                  <td>{{ item.serviceName }}</td>
+                  <td>{{ item.filename }}</td>
+                  <td>{{ item.logsize }}</td>
+                  <!-- <td>{{ item.content }}</td> -->
+                  <td>
+                    <button class="btn btn-primary" @click='downloadLog("{{item.content}}", "{{item.filename}}")'>Download</button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </b-modal>
+      </template>
+
+
+
+
+            <!-- new modal for service list -->
+
+            <template>
+                <div>
+                  <!-- Your existing modal template code -->
+                  <b-modal size="md" id="servicesModal" ref="modal" title="Services Details" @show="resetModal" @hidden="resetModal" hide-footer>
+                    <!-- Mini description with muted text -->
+                        <p class="text-muted">This table shows the total number of background services along with their respective sizes.</p>
+                    <div class="p-0" style="max-height: 400px; overflow-y: auto; position: relative; z-index: 0;border-radius: 10px;">
+                        
+                      <table class="table">
+                        <thead style="position: sticky; top: 0; background-color: #f0f0f0; z-index: 1;">
+                          <tr>
+                            <th>Sr No.</th>
+                            <th>Service Name</th>
+                            <th>Service Size</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in services %}
+                          <!-- Loop through your services data here -->
+                          <!-- <tr v-for="(service, index) in services" :key="index"> -->
+                            <tr>
+                            <td>{{ item.srno }}</td>
+                            <td>{{ item.serviceName }}</td>
+                            <td>{{ item.size }}</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </b-modal>
+        </div>
+    </template>
+
+            <template>
+        <div>
+          <!-- Your existing modal template code -->
+          <b-modal size="md" id="totallogsizemodal" ref="modal" title="Total Log Size" @show="resetModal" @hidden="resetModal" hide-footer>
+            <!-- Mini description with muted text -->
+                <p class="text-muted">This table shows the total number of background services along with their respective sizes.</p>
+            <div class="p-0" style="max-height: 400px; overflow-y: auto; position: relative; z-index: 0; border-radius: 10px;">
+                
+              <table class="table">
+                <thead style="position: sticky; top: 0; background-color: #f0f0f0; z-index: 1;">
+                  <tr>
+                    <th>Sr No.</th>
+                    <th>Service Name</th>
+                    <th>Total Files</th>
+                    <th>Size</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for item in logDistribution %}
+                  <!-- Loop through your services data here -->
+                  <!-- <tr v-for="(service, index) in services" :key="index"> -->
+                    <tr>
+                    <td>{{ item.srno }}</td>
+                    <td>{{ item.serviceName }}</td>
+                    <td>{{ item.files }}</td>
+                    <td>{{ item.size }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </b-modal>
+</div>
+</template>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-muted py-3">
+            <!-- Footer content -->
+        </footer>
+
+
+</body>
+<script>
+    // import zlib from 'zlib';
+    module.export = {
+
+        data: {
+            vData: {},
+
+            microservices: [{
+                    name: 'Service A',
+                    status: 'up'
+                }, {
+                    name: 'Service B',
+                    status: 'down'
+                }, {
+                    name: 'Service A',
+                    status: 'up'
+                }, {
+                    name: 'Service B',
+                    status: 'down'
+                }, {
+                    name: 'Service C',
+                    status: 'down'
+                }
+                // Add more microservices as needed
+            ],
+            //   microservices2: {{microservices}},
+
+            alertMessage: '',
+            dismissSecs: 5,
+            dismissCountDown: 0,
+            logs1: [{
+                name: 'Log 1',
+                content: 'Dummy content for log 1'
+            }, {
+                name: 'Log 1',
+                content: 'Dummy content for log 1'
+            }, {
+                name: 'Log 2',
+                content: 'Dummy content for log 2'
+            }, {
+                name: 'Log 3',
+                content: 'Dummy content for log 3'
+            }, ],
+            selectedLogContent: 'asdssssssssssss',
+            showModal: true,
+            logData1: [{
+                Filepath: 'C:\\IDEAL6-DEV\\nodeconsumer\\Logs\\2023-09-25-result.log',
+                Logname: '2023-09-25-result.log',
+                Size: '7.26 KB'
+            }, {
+                Filepath: 'C:\\IDEAL6-DEV\\nodeconsumer\\Logs\\2023-12-07-result.log',
+                Logname: '2023-12-07-result.log',
+                Size: '14.01 KB'
+            }],
+            logData: "{{logger}}",
+            logFields: ['Logname', 'Size', 'Action'],
+            userInfo: {
+                username: 'JohnDoe',
+                email: 'johndoe@example.com'
+                    // Add other user information as needed
+            },
+            currentTime: 'hhh',
+            services: [{
+                    name: 'Service 1',
+                    size: '10MB'
+                }, {
+                    name: 'Service 2',
+                    size: '20MB'
+                }, {
+                    name: 'Service 3',
+                    size: '15MB'
+                },
+                // Add more services as needed
+            ]
+        },
+
+        mounted() {
+            // Simulated data from the script section
+            const dataFromScript = {
+                name: 'hello',
+                message: 'helllllo'
+            };
+
+            // Assign the data from the script section to the component's data property
+            this.vData = dataFromScript;
+        },
+
+        methods: {
+            pingService(serviceName) {
+                // Here you can add your logic to ping the service
+                // For demonstration purposes, I'll just show an alert
+                alert(`Pinging ${serviceName}...`);
+                // You can replace this with your actual logic to check the service status
+                // Assuming the service is up
+                const serviceIndex = this.microservices.findIndex(service => service.name === serviceName);
+                if (serviceIndex !== -1) {
+                    this.microservices[serviceIndex].status = 'up';
+                }
+                // Assuming the service is down
+                // const serviceIndex = this.microservices.findIndex(service => service.name === serviceName);
+                // if (serviceIndex !== -1) {
+                //   this.microservices[serviceIndex].status = 'down';
+                // }
+            },
+            viewLog() {
+                this.showModal = true; // Show the modal
+                this.selectedLogContent = 'asdasdasds';
+                // console.log('helloooo---->', log)
+                console.log('this.selectedLogContent---->', this.selectedLogContent)
+                    // console.log('log---->', JSON.stringify(log))
+
+                console.log('sessionStorage--->', sessionStorage.getItem('_user_id'))
+                console.log('_ticket--->', sessionStorage.getItem('_ticket'))
+                    // alert(this.logs)
+                    // console.log(this.logs)
+            },
+            closeModal() {
+                this.selectedLogContent = 'asdasd';
+                console.log('this.selectedLogContent--->', this.selectedLogContent)
+                this.showModal = false; // Hide the modal
+            },
+            viewLog2(log) {
+                console.log('api function called---->')
+                    //   this.$store.commit("loading", true);
+                    //   this.showSpinner = true;
+                const requestData = log.content;
+                this.$credCAPI.collection().create({
+                        body: requestData,
+                        requestURL: "/idealn/api/logs"
+                    }).then((result) => {
+                        console.log('result---->', result)
+
+                        // Create a link element and trigger a click event to download the file
+                        // const link = document.createElement('a');
+                        // link.href = window.URL.createObjectURL(fileContent);
+                        // link.download = filename;
+                        // document.body.appendChild(link);
+                        // link.click();
+                        // document.body.removeChild(link);
+                        //   this.showSpinner = false;
+                        // this.$store.commit("loading", false); // Stop the loading indicator
+                    })
+                    .catch(error => {
+                        // this.showSpinner = false;
+                        // this.$store.commit("loading", false);
+                        console.error(error);
+                    });
+            },
+            makeToast(variant = null) {
+                this.$bvToast.toast('Toast body content', {
+                    title: `Variant ${variant || 'default'}`,
+                    variant: variant,
+                    solid: true
+                })
+            },
+            countDownChanged(dismissCountDown) {
+                this.dismissCountDown = dismissCountDown
+            },
+            showAlert() {
+                this.dismissCountDown = this.dismissSecs
+            },
+            resetModal() {
+                this.name = ''
+                this.nameState = null
+            },
+            handleOk(bvModalEvent) {
+                // Prevent modal from closing
+                bvModalEvent.preventDefault()
+                    // Trigger submit handler
+                this.handleSubmit()
+            },
+            downloadLog(content, filename) {
+                // Create a Blob with the log content
+                const blob = new Blob([content], {
+                    type: 'text/plain'
+                });
+                // Create a link element
+                const link = document.createElement('a');
+                // Set the href attribute to the Blob object
+                link.href = URL.createObjectURL(blob);
+                // Set the download attribute to the filename
+                link.download = filename;
+                // Simulate a click on the link to trigger the download
+                link.click();
+            }
+
+        },
+        props: ['logs'] // Assuming logs is a prop passed to this component
+    }
+</script>
+
+
+
+</html>
