@@ -16,6 +16,15 @@ This dashboard offers the following features:
 - **User and Role Policies:** Allows efficient management of user access and roles with dedicated sections for policy configurations.
 - **Log Analyzer:** Enables detailed log analysis for troubleshooting and monitoring purposes.
 
+Please ensure that you have the latest patches applied for both Page Builder and AppBuilder for optimal performance.
+## Preview
+
+Some Screenshots here
+### Screenshot 1
+![Dashboard Preview](https://github.com/srohit619/system-monitoring-dashboard/blob/5b9e33894e80e1533ba4f3f81f8de299c60b1969/preview/dahasboard%20prev%201.png)
+### Screenshot 2
+![Dashboard Preview](https://github.com/srohit619/system-monitoring-dashboard/blob/5b9e33894e80e1533ba4f3f81f8de299c60b1969/preview/dahasboard%20prev%202.png)
+
 ## Import Steps
 
 To import the System Health Dashboard:
@@ -24,10 +33,3 @@ To import the System Health Dashboard:
 2. Click on the "Import" option.
 3. Select the zip file containing the dashboard.
 4. Click on "Import" to import the dashboard into your Page Builder.
-
-Please ensure that you have the latest patches applied for both Page Builder and AppBuilder for optimal performance.
-## Preview
-
-Some Screenshots here
-
-![Dashboard Preview](dashboard_preview.png)
